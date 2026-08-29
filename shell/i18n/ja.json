@@ -83,6 +83,7 @@
   "theme": "テーマ",
   "test_conn": "接続テスト",
   "unknown_error": "不明なエラー",
+  "invalid_json": "JSON が不正です。保存する前に構文を修正してください。",
   "up_to_date": "最新です",
   "update": "アップデート",
   "update_available": "アップデートあり: {{v}}",

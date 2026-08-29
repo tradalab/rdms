@@ -9,6 +9,7 @@ import { KeyDetailSet } from "@/components/app/key-detail/key-detail-set"
 import { KeyDetailZset } from "@/components/app/key-detail/key-detail-zset"
 import { KeyDetailStream } from "@/components/app/key-detail/key-detail-stream"
 import { KeyDetailString } from "@/components/app/key-detail/key-detail-string"
+import { KeyDetailJson } from "@/components/app/key-detail/key-detail-json"
 import { Input, toast } from "@tradalab/lyra/ui"
 import { CopyIcon, RefreshCcwIcon, SaveIcon, TimerIcon, Trash2Icon } from "lucide-react"
 import { cn, formatDuration, formatFileSize } from "@/lib/utils"
@@ -248,6 +249,17 @@ type ViewKeyDataProps = {
 
 function ViewKeyData({ kind, value, databaseId, databaseIdx, selectedKey, reloadToken, reload, readOnly }: ViewKeyDataProps) {
   switch (kind) {
+    case "rejson-rl":
+      return (
+        <KeyDetailJson
+          databaseId={databaseId}
+          databaseIdx={databaseIdx}
+          selectedKey={selectedKey}
+          data={typeof value === "string" ? value : ""}
+          reload={reload}
+          readOnly={readOnly}
+        />
+      )
     case "string":
       return <KeyDetailString databaseId={databaseId} databaseIdx={databaseIdx} selectedKey={selectedKey} data={value} reload={reload} readOnly={readOnly} />
     case "json":
@@ -316,8 +328,6 @@ function ViewKeyData({ kind, value, databaseId, databaseIdx, selectedKey, reload
           readOnly={readOnly}
         />
       )
-    case "rejson-rl":
-      return <div></div>
     default:
       return null
   }

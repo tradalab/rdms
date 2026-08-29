@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 const KIND_BADGE: Record<string, string> = {
   string: "bg-blue-500/15 text-blue-700 dark:text-blue-300",
   json: "bg-indigo-500/15 text-indigo-700 dark:text-indigo-300",
+  "rejson-rl": "bg-indigo-500/15 text-indigo-700 dark:text-indigo-300",
   list: "bg-purple-500/15 text-purple-700 dark:text-purple-300",
   hash: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
   set: "bg-orange-500/15 text-orange-700 dark:text-orange-300",

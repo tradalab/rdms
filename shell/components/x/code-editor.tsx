@@ -8,6 +8,9 @@ import { debounce } from "lodash"
 import { cn } from "@/lib/utils"
 
 if (typeof window !== "undefined") {
+  ;(window as unknown as { MonacoEnvironment?: { getWorkerUrl(): string } }).MonacoEnvironment = {
+    getWorkerUrl: () => "/monaco-worker.js",
+  }
   loader.config({
     paths: {
       vs: "/monaco-editor/vs",

@@ -3,6 +3,7 @@ package client
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"github.com/redis/go-redis/v9"
@@ -33,6 +34,8 @@ func (l *KeyValueUpdateLogic) KeyValueUpdate(params *types.ClientKeyValueUpdateR
 		err = cli.Rdb.SetArgs(l.ctx, params.Key, params.Value, redis.SetArgs{KeepTTL: true}).Err()
 	case "json", "rejson", "rejson-rl":
 		err = cli.Rdb.JSONSet(l.ctx, params.Key, ".", params.Value).Err()
+	default:
+		return nil, fmt.Errorf("unsupported kind: %s", params.Kind)
 	}
 
 	if err != nil {

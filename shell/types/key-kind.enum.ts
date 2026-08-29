@@ -5,4 +5,5 @@ export enum KeyKindEnum {
   SET = "set",
   ZSET = "zset",
   STREAM = "stream",
+  JSON = "rejson-rl",
 }

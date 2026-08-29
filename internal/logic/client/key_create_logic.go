@@ -4,6 +4,7 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"strings"
 	"time"
 
@@ -108,6 +109,8 @@ func (l *KeyCreateLogic) KeyCreate(params *types.ClientKeyCreateReq) (*types.Emp
 		if err == nil && expiration > 0 {
 			cli.Rdb.Expire(l.ctx, params.Key, expiration)
 		}
+	default:
+		return nil, fmt.Errorf("unsupported kind: %s", params.Kind)
 	}
 
 	if err != nil {

@@ -83,6 +83,7 @@
   "theme": "Theme",
   "test_conn": "Test Connection",
   "unknown_error": "Unknown error!",
+  "invalid_json": "Invalid JSON - fix the syntax before saving.",
   "up_to_date": "Up to date",
   "update": "Update",
   "update_available": "Update available: {{v}}",
