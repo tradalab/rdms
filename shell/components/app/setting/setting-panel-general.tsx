@@ -25,6 +25,7 @@ export function SettingPanelGeneral() {
   const languages = [
     { value: "en", label: "🇺🇸 English" },
     { value: "ja", label: "🇯🇵 日本語" },
+    { value: "vi", label: "🇻🇳 Tiếng Việt" },
   ] as const
 
   const handleCheck = async () => {

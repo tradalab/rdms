@@ -5,6 +5,7 @@ import { Button } from "@tradalab/lyra/ui"
 import { Spinner } from "@tradalab/lyra/ui"
 import { PlusIcon, SaveIcon, Trash2Icon } from "lucide-react"
 import { useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { TlsReq as TlsDO } from "@/types"
 import { useTlsList } from "@/hooks/api/tls.api"
 import { TlsForm, TlsFormRef, PendingState } from "./tls.form"
@@ -16,6 +17,7 @@ export type Props = {
 }
 
 export function TlsDialog({ open, onOpenChange }: Props) {
+  const { t } = useTranslation()
   const { data: tlsList = [], isLoading } = useTlsList()
   const [selected, setSelected] = useState<Partial<TlsDO> | null>(null)
   const [pending, setPending] = useState<PendingState>({ save: false, delete: false })
@@ -44,7 +46,7 @@ export function TlsDialog({ open, onOpenChange }: Props) {
         onEscapeKeyDown={e => e.preventDefault()}
       >
         <DialogHeader className="px-4 pt-4">
-          <DialogTitle className="text-sm">TLS/SSL Configurations</DialogTitle>
+          <DialogTitle className="text-sm">{t("tls_configurations")}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-1 overflow-hidden">
           <div className="w-[260px] border-r flex flex-col">

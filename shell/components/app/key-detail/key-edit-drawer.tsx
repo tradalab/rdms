@@ -161,11 +161,11 @@ export function KeyEditDrawer({ connectionId, databaseIdx, keyName, item, onOpen
             {item?.kind === "hash" && (
               <>
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-hash-field">Field</Label>
+                  <Label htmlFor="edit-hash-field">{t("field")}</Label>
                   <Input id="edit-hash-field" value={text} onChange={e => setText(e.target.value)} placeholder="Field" />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-hash-value">Value</Label>
+                  <Label htmlFor="edit-hash-value">{t("value")}</Label>
                   <Textarea
                     id="edit-hash-value"
                     value={value}
@@ -180,11 +180,11 @@ export function KeyEditDrawer({ connectionId, databaseIdx, keyName, item, onOpen
             {item?.kind === "list" && (
               <>
                 <div className="grid gap-2">
-                  <Label>Index</Label>
+                  <Label>{t("index")}</Label>
                   <Input value={String(item.index)} readOnly disabled />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-list-value">Value</Label>
+                  <Label htmlFor="edit-list-value">{t("value")}</Label>
                   <Textarea
                     id="edit-list-value"
                     value={value}
@@ -198,7 +198,7 @@ export function KeyEditDrawer({ connectionId, databaseIdx, keyName, item, onOpen
             )}
             {item?.kind === "set" && (
               <div className="grid gap-2">
-                <Label htmlFor="edit-set-member">Member</Label>
+                <Label htmlFor="edit-set-member">{t("member")}</Label>
                 <Textarea
                   id="edit-set-member"
                   value={text}
@@ -212,7 +212,7 @@ export function KeyEditDrawer({ connectionId, databaseIdx, keyName, item, onOpen
             {item?.kind === "zset" && (
               <>
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-zset-member">Member</Label>
+                  <Label htmlFor="edit-zset-member">{t("member")}</Label>
                   <Textarea
                     id="edit-zset-member"
                     value={text}
@@ -223,7 +223,7 @@ export function KeyEditDrawer({ connectionId, databaseIdx, keyName, item, onOpen
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-zset-score">Score</Label>
+                  <Label htmlFor="edit-zset-score">{t("score")}</Label>
                   <Input id="edit-zset-score" type="number" step="any" value={score} onChange={e => setScore(e.target.value)} placeholder="Score" />
                 </div>
               </>

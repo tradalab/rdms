@@ -39,10 +39,10 @@ export function KeyAddValueZset({ form }: { form: UseFormReturn }) {
     <div className="rounded-lg border shadow-sm">
       <div className="bg-muted/50 text-muted-foreground grid grid-cols-[1fr_1fr_auto] divide-x divide-border rounded-t-lg">
         <div className="px-2.5 py-2 text-xs font-medium">
-          <label id="zset-value-key">Member</label>
+          <label id="zset-value-key">{t("member")}</label>
         </div>
         <div className="px-2.5 py-2 text-xs font-medium">
-          <label id="zset-value-value">Score</label>
+          <label id="zset-value-value">{t("score")}</label>
         </div>
         <div className="w-9" aria-hidden />
       </div>

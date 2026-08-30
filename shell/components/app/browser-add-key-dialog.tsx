@@ -103,7 +103,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between">Key</FormLabel>
+                    <FormLabel className="flex items-center justify-between">{t("key")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -133,7 +133,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between">Type</FormLabel>
+                    <FormLabel className="flex items-center justify-between">{t("type")}</FormLabel>
                     <FormControl>
                       <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger className="w-full">
@@ -160,7 +160,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                      <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                       <FormControl>
                         <CodeEditor {...field} />
                       </FormControl>
@@ -177,7 +177,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                      <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                       <FormControl>
                         <CodeEditor {...field} language="json" />
                       </FormControl>
@@ -193,7 +193,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                 name="value_list"
                 render={() => (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                    <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                     <FormControl>
                       <KeyAddValueList form={form} />
                     </FormControl>
@@ -208,7 +208,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                 name="value_hash"
                 render={() => (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                    <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                     <FormControl>
                       <KeyAddValueHash form={form} />
                     </FormControl>
@@ -223,7 +223,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                 name="value_set"
                 render={() => (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                    <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                     <FormControl>
                       <KeyAddValueSet form={form} />
                     </FormControl>
@@ -238,7 +238,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                 name="value_zset"
                 render={() => (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                    <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                     <FormControl>
                       <KeyAddValueZset form={form} />
                     </FormControl>
@@ -253,7 +253,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                 name="value_stream"
                 render={() => (
                   <FormItem>
-                    <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                    <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                     <FormControl>
                       <KeyAddValueStream form={form} />
                     </FormControl>

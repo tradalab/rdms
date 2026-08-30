@@ -4,7 +4,7 @@ import path from "node:path"
 export default defineConfig({
   test: {
     environment: "node",
-    include: ["lib/**/*.test.ts"],
+    include: ["{lib,i18n}/**/*.test.ts"],
   },
   resolve: {
     alias: { "@": path.resolve(__dirname, ".") },

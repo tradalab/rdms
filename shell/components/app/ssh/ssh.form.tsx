@@ -148,7 +148,7 @@ export const SshForm = forwardRef<SshFormRef, Props>(({ ssh, onPendingChange, on
           name="host"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Host</FormLabel>
+              <FormLabel>{t("host")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -161,7 +161,7 @@ export const SshForm = forwardRef<SshFormRef, Props>(({ ssh, onPendingChange, on
           name="port"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Port</FormLabel>
+              <FormLabel>{t("port")}</FormLabel>
               <FormControl>
                 <Input type="number" value={field.value ?? ""} onChange={e => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))} />
               </FormControl>
@@ -243,7 +243,12 @@ export const SshForm = forwardRef<SshFormRef, Props>(({ ssh, onPendingChange, on
                 <FormItem>
                   <FormLabel>{t("private_key")}</FormLabel>
                   <FormControl>
-                    <Textarea {...field} value={field.value ?? ""} className="font-mono text-xs min-h-[120px]" placeholder={editing ? t("secret_keep_hint") : t("enter_private_key_pem")} />
+                    <Textarea
+                      {...field}
+                      value={field.value ?? ""}
+                      className="font-mono text-xs min-h-[120px]"
+                      placeholder={editing ? t("secret_keep_hint") : t("enter_private_key_pem")}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -254,7 +259,7 @@ export const SshForm = forwardRef<SshFormRef, Props>(({ ssh, onPendingChange, on
               name="passphrase"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Passphrase</FormLabel>
+                  <FormLabel>{t("passphrase")}</FormLabel>
                   <FormControl>
                     <Input {...field} value={field.value ?? ""} type="password" placeholder={secretPlaceholder} />
                   </FormControl>

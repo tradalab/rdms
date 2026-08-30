@@ -35,16 +35,16 @@ export function ConnectionDetailTabSlowQuery({ connectionId, databaseIdx }: { co
   }
 
   if (!logs || logs.length === 0) {
-    return <div className="h-full w-full flex justify-center items-center text-muted-foreground">No slow queries</div>
+    return <div className="h-full w-full flex justify-center items-center text-muted-foreground">{t("no_slow_queries")}</div>
   }
 
   return (
     <div className="h-full flex flex-col overflow-auto rounded-md border">
       <div className="grid grid-cols-[200px_200px_100px_1fr] bg-muted/20 dark:bg-muted/50 font-semibold gap-2 p-2 sticky top-0 z-10 border-b">
-        <div>Time</div>
-        <div>Client Addr</div>
-        <div>Duration</div>
-        <div>Command</div>
+        <div>{t("time")}</div>
+        <div>{t("client_addr")}</div>
+        <div>{t("duration")}</div>
+        <div>{t("command")}</div>
       </div>
       <div className="flex-1 overflow-auto">
         <div className="flex flex-col">
@@ -56,7 +56,9 @@ export function ConnectionDetailTabSlowQuery({ connectionId, databaseIdx }: { co
                 key={idx}
                 className="grid grid-cols-[200px_200px_100px_1fr] items-center gap-2 p-2 border-b border-border transition-colors hover:bg-muted/50 dark:hover:bg-muted/70"
               >
-                <div className="truncate" title={time}>{time}</div>
+                <div className="truncate" title={time}>
+                  {time}
+                </div>
                 <div className="truncate">{log?.client_addr}</div>
                 <div className="truncate">{duration}</div>
                 <div className="truncate" title={log?.command?.join?.("\n")}>

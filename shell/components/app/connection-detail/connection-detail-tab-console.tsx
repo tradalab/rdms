@@ -90,7 +90,9 @@ export function ConnectionDetailTabConsole({ connectionId, databaseIdx }: { conn
     let term: any = null
 
     let isExecuting = false
-    const currentHistory = getHistoryForConnection(connectionId, databaseIdx).map(h => h.command).reverse()
+    const currentHistory = getHistoryForConnection(connectionId, databaseIdx)
+      .map(h => h.command)
+      .reverse()
     let historyIndex = currentHistory.length
 
     const prompt = `db${databaseIdx}> `
@@ -99,7 +101,7 @@ export function ConnectionDetailTabConsole({ connectionId, databaseIdx }: { conn
     }
 
     const replaceInput = (text: string) => {
-      termRef.current?.write('\x1b[2K\r')
+      termRef.current?.write("\x1b[2K\r")
       termPrompt()
 
       buffer = text
@@ -298,7 +300,7 @@ export function ConnectionDetailTabConsole({ connectionId, databaseIdx }: { conn
       }
 
       term.attachCustomKeyEventHandler((arg: KeyboardEvent) => {
-        if (arg.keyCode === 9 && arg.type === 'keydown') {
+        if (arg.keyCode === 9 && arg.type === "keydown") {
           arg.preventDefault()
           if (acRef.current.open && acRef.current.list.length > 0) {
             const selected = acRef.current.list[acRef.current.index]
@@ -458,7 +460,7 @@ export function ConnectionDetailTabConsole({ connectionId, databaseIdx }: { conn
             style={{
               left: acState.x,
               ...(acState.direction === "up" ? { bottom: acState.y } : { top: acState.y }),
-              minWidth: "250px"
+              minWidth: "250px",
             }}
           >
             <div className="flex-1 overflow-y-auto py-1 custom-scrollbar">
@@ -493,8 +495,13 @@ export function ConnectionDetailTabConsole({ connectionId, databaseIdx }: { conn
               ))}
             </div>
             <div className="bg-muted px-2 py-1 text-[10px] text-muted-foreground border-t flex justify-between">
-              <span>Use <kbd className="font-sans px-1 bg-background rounded border">↑</kbd> <kbd className="font-sans px-1 bg-background rounded border">↓</kbd> to navigate</span>
-              <span><kbd className="font-sans px-1 bg-background rounded border">Tab</kbd> to select</span>
+              <span>
+                {t("console_hint_use")} <kbd className="font-sans px-1 bg-background rounded border">↑</kbd>{" "}
+                <kbd className="font-sans px-1 bg-background rounded border">↓</kbd> {t("console_hint_navigate")}
+              </span>
+              <span>
+                <kbd className="font-sans px-1 bg-background rounded border">Tab</kbd> {t("console_hint_select")}
+              </span>
             </div>
           </div>
         )}
@@ -502,4 +509,3 @@ export function ConnectionDetailTabConsole({ connectionId, databaseIdx }: { conn
     </Card>
   )
 }
-

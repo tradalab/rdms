@@ -1,6 +1,7 @@
 "use client"
 
 import { useAppContext } from "@/ctx/app.context"
+import { useTranslation } from "react-i18next"
 import { useTabStore } from "@/stores/tab.store"
 import { TabBar } from "@/components/layout/tab-bar"
 import { ConnectionDetailTabGeneral } from "@/components/app/connection-detail/connection-detail-tab-general"
@@ -13,6 +14,7 @@ import { ConnectionDetailTabMonitor } from "@/components/app/connection-detail/c
 import { ConnectionDetailTabAnalysis } from "@/components/app/connection-detail/connection-detail-tab-analysis"
 
 export default function Page() {
+  const { t } = useTranslation()
   const { selectedDb } = useAppContext()
   const { tabs, activeTabId } = useTabStore()
 
@@ -21,7 +23,7 @@ export default function Page() {
       <TabBar />
       <div className="flex-1 min-h-0 overflow-hidden relative">
         {tabs.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-muted-foreground">Select an item from the sidebar to open a tab</div>
+          <div className="flex items-center justify-center h-full text-muted-foreground">{t("select_item_hint")}</div>
         ) : (
           tabs.map(tab => {
             const isActive = tab.id === activeTabId

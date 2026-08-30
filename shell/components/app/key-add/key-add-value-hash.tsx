@@ -40,10 +40,10 @@ export function KeyAddValueHash({ form }: { form: UseFormReturn }) {
     <div className="rounded-lg border shadow-sm">
       <div className="bg-muted/50 text-muted-foreground grid grid-cols-[1fr_1fr_auto] divide-x divide-border rounded-t-lg">
         <div className="px-2.5 py-2 text-xs font-medium">
-          <label id="hash-value-key">Key</label>
+          <label id="hash-value-key">{t("key")}</label>
         </div>
         <div className="px-2.5 py-2 text-xs font-medium">
-          <label id="hash-value-value">Value</label>
+          <label id="hash-value-value">{t("value")}</label>
         </div>
         <div className="w-9" aria-hidden />
       </div>

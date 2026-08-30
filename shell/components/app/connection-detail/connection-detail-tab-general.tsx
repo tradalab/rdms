@@ -30,13 +30,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@trada
 import { useConnectionGeneral } from "@/hooks/api/client.api"
 import { parseRedisInfo } from "@/lib/utils"
 import { Switch } from "@tradalab/lyra/ui"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@tradalab/lyra/ui"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@tradalab/lyra/ui"
 
 const SECTION_ICONS: Record<string, LucideIcon> = {
   Server,
@@ -160,7 +154,7 @@ export function ConnectionDetailTabGeneral({ connectionId, databaseIdx }: { conn
     <div className="flex h-full w-full bg-background overflow-hidden relative text-sm">
       <div className={cn("flex flex-col border-r bg-muted/30 transition-all duration-300 ease-in-out shrink-0 overflow-hidden", collapsed ? "w-12.5" : "w-56")}>
         <div className="p-2 flex items-center justify-between">
-          {!collapsed && <span className="font-semibold text-xs px-1 opacity-70 uppercase tracking-wider">Sections</span>}
+          {!collapsed && <span className="font-semibold text-xs px-1 opacity-70 uppercase tracking-wider">{t("sections")}</span>}
           <Button variant="ghost" size="icon" className="h-8 w-8 ml-auto" onClick={() => setCollapsed(!collapsed)}>
             {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
           </Button>
@@ -176,10 +170,7 @@ export function ConnectionDetailTabGeneral({ connectionId, databaseIdx }: { conn
                   <TooltipTrigger asChild>
                     <Button
                       variant={isActive ? "secondary" : "ghost"}
-                      className={cn(
-                        "w-full justify-start gap-2 px-2 h-9",
-                        isActive && "bg-secondary/70 font-medium"
-                      )}
+                      className={cn("w-full justify-start gap-2 px-2 h-9", isActive && "bg-secondary/70 font-medium")}
                       onClick={() => setActiveSection(section)}
                     >
                       <Icon size={16} className={cn("shrink-0", isActive ? "text-primary" : "text-muted-foreground")} />
@@ -232,10 +223,7 @@ export function ConnectionDetailTabGeneral({ connectionId, databaseIdx }: { conn
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-2 bg-muted/50 rounded-md px-2.5 h-8">
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{t("Auto")}</span>
-                <Select
-                  value={String(refreshInterval / 1000)}
-                  onValueChange={val => handleIntervalChange(Number(val) * 1000)}
-                >
+                <Select value={String(refreshInterval / 1000)} onValueChange={val => handleIntervalChange(Number(val) * 1000)}>
                   <SelectTrigger className="h-6 w-[56px] border-none bg-transparent shadow-none focus:ring-0 text-xs px-1 hover:bg-muted transition-colors font-medium">
                     <SelectValue />
                   </SelectTrigger>
@@ -262,8 +250,8 @@ export function ConnectionDetailTabGeneral({ connectionId, databaseIdx }: { conn
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent bg-muted/30">
-                    <TableHead className="w-1/3 py-2 text-xs uppercase tracking-wider">Property</TableHead>
-                    <TableHead className="w-2/3 py-2 text-xs uppercase tracking-wider">Value</TableHead>
+                    <TableHead className="w-1/3 py-2 text-xs uppercase tracking-wider">{t("property")}</TableHead>
+                    <TableHead className="w-2/3 py-2 text-xs uppercase tracking-wider">{t("value")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
