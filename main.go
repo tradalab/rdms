@@ -12,6 +12,7 @@ import (
 	"github.com/tradalab/rdms/internal/svc"
 	"github.com/tradalab/scorix/app"
 	browsermod "github.com/tradalab/scorix/module/browser"
+	traymod "github.com/tradalab/scorix/module/systemtray"
 	updatermod "github.com/tradalab/scorix/module/updater"
 )
 
@@ -20,6 +21,9 @@ var embeddedPublic embed.FS
 
 //go:embed scorix.yaml
 var manifest []byte
+
+//go:embed assets/icon.ico
+var trayIcon []byte
 
 func main() {
 	log.SetFlags(log.Ltime)
@@ -45,6 +49,7 @@ func main() {
 	}
 	a.Serve("scorix", site)
 
+	a.Module(traymod.New(trayIcon))
 	a.Module(browsermod.New())
 	a.Module(updatermod.New())
 

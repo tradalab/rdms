@@ -10,7 +10,7 @@ require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/redis/go-redis/v9 v9.18.0
 	github.com/samber/lo v1.53.0
-	github.com/tradalab/scorix v0.10.1-0.20260830044205-04fd0667a1df
+	github.com/tradalab/scorix v0.10.1-0.20260830153337-d8b8a6b7177b
 	golang.org/x/crypto v0.50.0
 	golang.org/x/net v0.53.0
 	modernc.org/sqlite v1.52.0
@@ -22,6 +22,7 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/ebitengine/purego v0.10.1 // indirect
+	github.com/energye/systray v1.0.3 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.13 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect

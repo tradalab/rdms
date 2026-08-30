@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { GroupItem as GroupDO, ConnectionReq as ConnectionDO } from "@/types"
-import { TreeItem } from "@/components/app/tree"
+import { TreeItem } from "@/app/_components/tree"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
