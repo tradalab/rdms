@@ -11,6 +11,7 @@ import {
   Trash2Icon,
   TerminalIcon,
   ActivityIcon,
+  ChartColumnIcon,
   DatabaseIcon,
   RadioIcon,
   LayoutGridIcon,
@@ -312,7 +313,13 @@ export function SidebarBrowser() {
                 <DropdownMenuItem
                   className="gap-2 cursor-pointer"
                   onClick={() =>
-                    addTab({ type: "console", title: "Console", connectionId: selectedDb!, connectionName: currentConnection?.name, databaseIdx: selectedDbIdx })
+                    addTab({
+                      type: "console",
+                      title: "Console",
+                      connectionId: selectedDb!,
+                      connectionName: currentConnection?.name,
+                      databaseIdx: selectedDbIdx,
+                    })
                   }
                 >
                   <TerminalIcon className="h-4 w-4" />
@@ -330,7 +337,13 @@ export function SidebarBrowser() {
                 <DropdownMenuItem
                   className="gap-2 cursor-pointer"
                   onClick={() =>
-                    addTab({ type: "monitor", title: "Monitor", connectionId: selectedDb!, connectionName: currentConnection?.name, databaseIdx: selectedDbIdx })
+                    addTab({
+                      type: "monitor",
+                      title: "Monitor",
+                      connectionId: selectedDb!,
+                      connectionName: currentConnection?.name,
+                      databaseIdx: selectedDbIdx,
+                    })
                   }
                 >
                   <MonitorIcon className="h-4 w-4" />
@@ -339,7 +352,28 @@ export function SidebarBrowser() {
                 <DropdownMenuItem
                   className="gap-2 cursor-pointer"
                   onClick={() =>
-                    addTab({ type: "slow-query", title: "Slow Query", connectionId: selectedDb!, connectionName: currentConnection?.name, databaseIdx: selectedDbIdx })
+                    addTab({
+                      type: "analysis",
+                      title: "Analysis",
+                      connectionId: selectedDb!,
+                      connectionName: currentConnection?.name,
+                      databaseIdx: selectedDbIdx,
+                    })
+                  }
+                >
+                  <ChartColumnIcon className="h-4 w-4" />
+                  {t("analysis")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="gap-2 cursor-pointer"
+                  onClick={() =>
+                    addTab({
+                      type: "slow-query",
+                      title: "Slow Query",
+                      connectionId: selectedDb!,
+                      connectionName: currentConnection?.name,
+                      databaseIdx: selectedDbIdx,
+                    })
                   }
                 >
                   <ActivityIcon className="h-4 w-4" />

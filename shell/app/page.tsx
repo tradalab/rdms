@@ -10,6 +10,7 @@ import { ConnectionDetailTabSlowQuery } from "@/components/app/connection-detail
 import { ConnectionDetailTabPubSub } from "@/components/app/connection-detail/connection-detail-tab-pubsub"
 import { ConnectionDetailTabKeyList } from "@/components/app/connection-detail/connection-detail-tab-key-list"
 import { ConnectionDetailTabMonitor } from "@/components/app/connection-detail/connection-detail-tab-monitor"
+import { ConnectionDetailTabAnalysis } from "@/components/app/connection-detail/connection-detail-tab-analysis"
 
 export default function Page() {
   const { selectedDb } = useAppContext()
@@ -35,6 +36,7 @@ export default function Page() {
                 {tab.type === "pubsub" && <ConnectionDetailTabPubSub connectionId={tab.connectionId} databaseIdx={tab.databaseIdx} />}
                 {tab.type === "monitor" && <ConnectionDetailTabMonitor connectionId={tab.connectionId} databaseIdx={tab.databaseIdx} />}
                 {tab.type === "key-list" && <ConnectionDetailTabKeyList connectionId={tab.connectionId} databaseIdx={tab.databaseIdx} />}
+                {tab.type === "analysis" && <ConnectionDetailTabAnalysis connectionId={tab.connectionId} databaseIdx={tab.databaseIdx} />}
               </div>
             )
           })

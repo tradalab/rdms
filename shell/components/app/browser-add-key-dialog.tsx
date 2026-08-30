@@ -37,6 +37,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
       value_set: [" "],
       value_zset: [{ member: "", score: 0 }],
       value_stream: {},
+      value_json: "",
     },
     resolver: zodResolver(
       z.object({
@@ -49,11 +50,20 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
         value_set: z.any().optional(),
         value_zset: z.any().optional(),
         value_stream: z.any().optional(),
+        value_json: z.any().optional(),
       })
     ),
   })
 
   const submit = form.handleSubmit(async values => {
+    if (values.kind == KeyKindEnum.JSON) {
+      try {
+        JSON.parse(values.value_json ?? "")
+      } catch {
+        toast.add({ title: t("invalid_json"), type: "error" })
+        return
+      }
+    }
     if (values.kind == KeyKindEnum.STREAM) {
       const entries = (values.value_stream ?? []).filter((i: any) => i?.field !== "").map((i: any) => [i?.field, i?.value])
       values.value_stream = {
@@ -130,9 +140,9 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {["string", "list", "hash", "set", "zset", "stream"].map(e => (
+                          {["string", "list", "hash", "set", "zset", "stream", KeyKindEnum.JSON].map(e => (
                             <SelectItem key={e} value={e}>
-                              {e.toUpperCase()}
+                              {e === KeyKindEnum.JSON ? "JSON" : e.toUpperCase()}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -153,6 +163,23 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                       <FormLabel className="flex items-center justify-between">Value</FormLabel>
                       <FormControl>
                         <CodeEditor {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            )}
+            {kindValue == KeyKindEnum.JSON && (
+              <FormField
+                control={form.control}
+                name="value_json"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="flex items-center justify-between">Value</FormLabel>
+                      <FormControl>
+                        <CodeEditor {...field} language="json" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

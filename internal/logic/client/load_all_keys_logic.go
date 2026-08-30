@@ -3,11 +3,11 @@ package client
 
 import (
 	"context"
-	"strconv"
 	"strings"
 
 	"github.com/tradalab/rdms/internal/svc"
 	"github.com/tradalab/rdms/internal/types"
+	"github.com/tradalab/rdms/pkg/redisscan"
 )
 
 type LoadAllKeysLogic struct {
@@ -33,14 +33,13 @@ func (l *LoadAllKeysLogic) LoadAllKeys(params *types.ClientLoadAllKeysReq) (*typ
 		pattern += "*"
 	}
 
-	cursor, _ := strconv.ParseUint(params.Cursor, 10, 64)
-	keys, nextCursor, err := cli.Rdb.Scan(l.ctx, cursor, pattern, params.Count).Result()
+	keys, next, err := redisscan.Page(l.ctx, cli.Rdb, redisscan.ParseCursor(params.Cursor), pattern, params.Count, "")
 	if err != nil {
 		return nil, err
 	}
 
 	return &types.ClientLoadAllKeysRes{
 		Keys:   keys,
-		Cursor: strconv.FormatUint(nextCursor, 10),
+		Cursor: next.String(),
 	}, nil
 }

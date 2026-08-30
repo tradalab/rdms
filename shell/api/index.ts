@@ -107,3 +107,7 @@ export const setting = {
   get: (params: T.SettingGetReq) => scorix.invoke<T.SettingGetRes>("setting:get", params),
 };
 
+export const analysis = {
+  profile: (params: T.AnalysisProfileReq) => scorix.serverStream<T.AnalysisProfileEvent>("analysis:profile", params),
+};
+

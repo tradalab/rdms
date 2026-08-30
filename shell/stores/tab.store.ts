@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-export type TabType = "general" | "console" | "key-detail" | "slow-query" | "pubsub" | "key-list" | "monitor"
+export type TabType = "general" | "console" | "key-detail" | "slow-query" | "pubsub" | "key-list" | "monitor" | "analysis"
 
 export interface TabDO {
   id: string

@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/tradalab/rdms/internal/logic/analysis"
 	"github.com/tradalab/rdms/internal/logic/client"
 	"github.com/tradalab/rdms/internal/logic/conn"
 	"github.com/tradalab/rdms/internal/logic/connection"
@@ -389,6 +390,9 @@ func RegisterHandlers(a *app.App, svcCtx *svc.ServiceContext) {
 			return setting.NewGetLogic(ctx, svcCtx).Get(a.(*types.SettingGetReq))
 		}
 		return h(ctx, r)
+	})
+	app.RegisterServerStream(a, "analysis:profile", func(ctx context.Context, req *types.AnalysisProfileReq, out app.Sink[types.AnalysisProfileEvent]) error {
+		return analysis.NewProfileLogic(ctx, svcCtx).Profile(req, out)
 	})
 }
 

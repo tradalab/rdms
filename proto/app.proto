@@ -544,7 +544,6 @@ message ConsoleInputEvent {
   string command        = 4;
 }
 
-
 message ConsoleOutputEvent {
   string connection_id = 1;
   string id            = 2;
@@ -653,4 +652,79 @@ service setting {
   rpc List(Empty) returns (SettingListRes);
   rpc Set(SettingSetReq) returns (Empty);
   rpc Get(SettingGetReq) returns (SettingGetRes);
+}
+
+message AnalysisProfileReq {
+  string connection_id  = 1;
+  int32  database_index = 2;
+  string mode           = 3;
+  int64  sample_size    = 4;
+}
+
+message AnalysisBucket {
+  string label = 1; // power-of-two bucket as Redis reports it: "8", "16K"
+  int64  count = 2;
+}
+
+message AnalysisTypeStat {
+  string kind  = 1;
+  int64  keys  = 2;
+  int64  bytes = 3; // estimated from the sample; 0 when nothing was sampled
+}
+
+message AnalysisSizeDistrib {
+  string kind             = 1; // strings | lists | hashes | sets | zsets
+  string unit             = 2; // bytes | items
+  repeated AnalysisBucket buckets = 3;
+}
+
+message AnalysisTopKey {
+  string key    = 1;
+  string kind   = 2;
+  int64  bytes  = 3;
+  int64  ttl_ms = 4;
+  int64  recency = 5;
+}
+
+message AnalysisMemory {
+  int64  used          = 1;
+  int64  peak          = 2;
+  int64  dataset       = 3;
+  int64  overhead      = 4;
+  int64  maxmemory     = 5;
+  double fragmentation = 6;
+  string policy        = 7;
+}
+
+message AnalysisTtlStat {
+  int64 total      = 1;
+  int64 with_ttl   = 2;
+  int64 avg_ttl_ms = 3;
+  repeated AnalysisBucket buckets = 4; // sampled, label is a human range
+}
+
+message AnalysisNode {
+  string addr = 1;
+  int64  keys = 2;
+}
+
+message AnalysisProfileEvent {
+  string phase     = 1;
+  int64  scanned   = 2;
+  int64  total     = 3;
+  bool   truncated = 5;
+  repeated string warnings = 6;
+  string distrib_source = 7;
+  string redis_version  = 8;
+  AnalysisMemory  memory = 9;
+  AnalysisTtlStat ttl    = 10;
+  repeated AnalysisTypeStat    types    = 11;
+  repeated AnalysisSizeDistrib distrib  = 12;
+  repeated AnalysisTopKey      top_keys = 13;
+  repeated AnalysisNode        nodes    = 14;
+  string recency_metric = 15; // freq | idle | none
+}
+
+service analysis {
+  rpc Profile(AnalysisProfileReq) returns (stream AnalysisProfileEvent);
 }

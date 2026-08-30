@@ -4,10 +4,9 @@ package client
 import (
 	"context"
 
-	"strconv"
-
 	"github.com/tradalab/rdms/internal/svc"
 	"github.com/tradalab/rdms/internal/types"
+	"github.com/tradalab/rdms/pkg/redisscan"
 )
 
 type KeysScanByPrefixLogic struct {
@@ -31,13 +30,13 @@ func (l *KeysScanByPrefixLogic) KeysScanByPrefix(params *types.ClientKeysDeleteB
 	match := params.Prefix + "*"
 	limit := int64(1000)
 
-	keys, nextCursor, err := cli.Rdb.Scan(l.ctx, 0, match, limit).Result()
+	keys, next, err := redisscan.Page(l.ctx, cli.Rdb, redisscan.Cursor{}, match, limit, "")
 	if err != nil {
 		return nil, err
 	}
 
 	return &types.ClientKeysScanByPrefixRes{
 		Keys:       keys,
-		NextCursor: strconv.FormatUint(nextCursor, 10),
+		NextCursor: next.String(),
 	}, nil
 }

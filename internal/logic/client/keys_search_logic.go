@@ -3,7 +3,6 @@ package client
 
 import (
 	"context"
-	"strconv"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -12,6 +11,7 @@ import (
 	"github.com/tradalab/rdms/internal/svc"
 	"github.com/tradalab/rdms/internal/types"
 	"github.com/tradalab/rdms/pkg/keyfilter"
+	"github.com/tradalab/rdms/pkg/redisscan"
 	"github.com/tradalab/rdms/pkg/util"
 )
 
@@ -56,10 +56,7 @@ func (l *KeysSearchLogic) KeysSearch(req *types.ClientKeysSearchReq, out app.Sin
 		return err
 	}
 
-	cursor, err := parseSearchCursor(req.Cursor)
-	if err != nil {
-		return err
-	}
+	cursor := redisscan.ParseCursor(req.Cursor)
 
 	opts := searchOptions{
 		match:     filter.Pushdown(),
@@ -79,7 +76,7 @@ type searchOptions struct {
 	scanCount int64
 	limit     int64
 	budget    time.Duration
-	cursor    uint64
+	cursor    redisscan.Cursor
 }
 
 func scanFiltered(
@@ -122,7 +119,7 @@ func scanFiltered(
 			Keys:      batch,
 			Scanned:   scanned,
 			Matched:   matched,
-			Cursor:    strconv.FormatUint(cursor, 10),
+			Cursor:    cursor.String(),
 			Done:      done,
 			Truncated: truncated,
 		})
@@ -132,17 +129,8 @@ func scanFiltered(
 	}
 
 	for {
-		var (
-			keys       []string
-			nextCursor uint64
-			err        error
-		)
 		roundCursor := cursor
-		if opts.keyType != "" {
-			keys, nextCursor, err = rdb.ScanType(ctx, cursor, match, scanCount, opts.keyType).Result()
-		} else {
-			keys, nextCursor, err = rdb.Scan(ctx, cursor, match, scanCount).Result()
-		}
+		keys, nextCursor, err := redisscan.Page(ctx, rdb, cursor, match, scanCount, opts.keyType)
 		if err != nil {
 			return err
 		}
@@ -167,7 +155,7 @@ func scanFiltered(
 
 		cursor = nextCursor
 
-		if cursor == 0 {
+		if cursor.Done() {
 			return send(true)
 		}
 
@@ -186,11 +174,4 @@ func scanFiltered(
 			return err
 		}
 	}
-}
-
-func parseSearchCursor(s string) (uint64, error) {
-	if s == "" || s == "0" {
-		return 0, nil
-	}
-	return strconv.ParseUint(s, 10, 64)
 }

@@ -6,6 +6,7 @@ import (
 
 	"github.com/tradalab/rdms/internal/svc"
 	"github.com/tradalab/rdms/internal/types"
+	"github.com/tradalab/rdms/pkg/redisscan"
 )
 
 type SearchKeysLogic struct {
@@ -33,7 +34,15 @@ func (l *SearchKeysLogic) SearchKeys(params *types.ClientSearchKeysReq) (*types.
 
 	match := params.Prefix + "*"
 
-	keys, _, err := cli.Rdb.Scan(l.ctx, 0, match, count).Result()
+	var keys []string
+	err = redisscan.Each(l.ctx, cli.Rdb, match, count, func(batch []string) error {
+		keys = append(keys, batch...)
+		if int64(len(keys)) >= count {
+			keys = keys[:count]
+			return redisscan.ErrStop
+		}
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}

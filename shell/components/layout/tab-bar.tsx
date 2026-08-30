@@ -2,7 +2,7 @@
 
 import { type ElementType } from "react"
 import { useTranslation } from "react-i18next"
-import { Database, Key, Terminal, Activity, Radio, LayoutGrid, Monitor } from "lucide-react"
+import { Database, Key, Terminal, Activity, Radio, LayoutGrid, Monitor, ChartColumn } from "lucide-react"
 import { TabBar as LyraTabBar, type TabItem } from "@tradalab/lyra/shell"
 import { useTabStore, TabType } from "@/stores/tab.store"
 
@@ -11,6 +11,7 @@ const IconMap: Record<TabType, ElementType> = {
   "key-detail": Key,
   console: Terminal,
   "slow-query": Activity,
+  analysis: ChartColumn,
   pubsub: Radio,
   "key-list": LayoutGrid,
   monitor: Monitor,

@@ -9,6 +9,7 @@ import (
 
 	"github.com/tradalab/rdms/internal/svc"
 	"github.com/tradalab/rdms/internal/types"
+	"github.com/tradalab/rdms/pkg/redisscan"
 )
 
 type KeysDeleteByPrefixLogic struct {
@@ -67,31 +68,18 @@ func (l *KeysDeleteByPrefixLogic) KeysDeleteByPrefix(params *types.ClientKeysDel
 	}
 
 	match := params.Prefix + "*"
-	cursor := uint64(0)
 	batchSize := int64(1000)
 	totalDeleted := 0
 
-	for {
-		keys, nextCursor, err := cli.Rdb.Scan(l.ctx, cursor, match, batchSize).Result()
-		if err != nil {
+	err = redisscan.Each(l.ctx, cli.Rdb, match, batchSize, func(keys []string) error {
+		if err := cli.Rdb.Del(l.ctx, keys...).Err(); err != nil {
 			return err
 		}
-
-		if len(keys) > 0 {
-			if err = cli.Rdb.Del(l.ctx, keys...).Err(); err != nil {
-				return err
-			}
-			totalDeleted += len(keys)
-
-			if err = progress(totalDeleted, 0, "processing"); err != nil {
-				return err
-			}
-		}
-
-		cursor = nextCursor
-		if cursor == 0 {
-			break
-		}
+		totalDeleted += len(keys)
+		return progress(totalDeleted, 0, "processing")
+	})
+	if err != nil {
+		return err
 	}
 
 	return progress(totalDeleted, 0, "done")
