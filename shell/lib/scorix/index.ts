@@ -12,8 +12,41 @@ export interface Duplex<In, Out> extends AsyncIterable<Out> {
   cancel(): void;
 }
 
+export interface ScorixError extends Error {
+  code?: string;
+  details?: unknown;
+}
+
+export function isScorixError(e: unknown): e is ScorixError {
+  return e instanceof Error && (e.name === "ScorixError" || "code" in e);
+}
+
+export interface ScorixScreen {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  primary: boolean;
+  scale: number;
+}
+
+export interface ScorixWindow {
+  minimize(): Promise<void>;
+  toggleMaximize(): Promise<{ maximized: boolean }>;
+  isMaximized(): Promise<boolean>;
+  close(): Promise<void>;
+  hide(): Promise<void>;
+  show(): Promise<void>;
+  focus(): Promise<void>;
+  setTitle(title: string): Promise<void>;
+  fullscreen(on: boolean): Promise<void>;
+  startDrag(): Promise<void>;
+  screens(): Promise<ScorixScreen[]>;
+}
+
 export interface ScorixAPI {
   mode?: "app" | "web";
+  win?: ScorixWindow;
   invoke<T = any>(
     method: string,
     params?: any,
