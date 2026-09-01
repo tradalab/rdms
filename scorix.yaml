@@ -35,10 +35,7 @@ package:
       enabled: false
       gpg_key_env: LINUX_GPG_KEY
   update:
-    appcast: true
     checksums: true
-    elevate: true                       # MSI install needs elevation
-    base_url: https://cdn.tradalab.com/redishub
     sign_key_env: SCORIX_UPDATE_PRIVATE_KEY  # Ed25519 private key (base64); CI secret
 
 app:
@@ -96,7 +93,6 @@ modules:
     enabled: true
     provider: github
     github_repo: tradalab/redishub
-    appcast_url:
     public_key_base_64: XoPvqQ8+pJPXLzD0zlpTLVo7WCTzKK47gWYsz25TL9E=
     platform_key:
     force_elevate: true

@@ -47,7 +47,7 @@ jobs:
           chmod 755 /usr/local/bin/linuxdeploy
 
       - name: Install scorix CLI
-        run: go install github.com/tradalab/scorix/cmd/scorix@v0.10.1-0.20260830044205-04fd0667a1df
+        run: go install github.com/tradalab/scorix/cmd/scorix@v0.12.0
 
       - name: Install frontend deps
         working-directory: shell
