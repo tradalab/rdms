@@ -56,7 +56,7 @@ RUN set -eux; \
     fi
 
 
-FROM golang:1.26-alpine AS web-builder
+FROM golang:1.27-alpine AS web-builder
 
 RUN apk add --no-cache gcc musl-dev
 
