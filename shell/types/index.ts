@@ -115,6 +115,7 @@ export interface ClientKeyCreateReq {
   value_set?: string[];
   value_zset?: ZMember[];
   value_stream: StreamValue;
+  value_graph: string;
 }
 
 export interface ClientKeyDeleteReq {
@@ -321,6 +322,53 @@ export interface DbInfo {
 }
 
 export interface Empty {
+}
+
+export interface GraphEdge {
+  id: number;
+  type: string;
+  src: number;
+  dst: number;
+  properties: string;
+}
+
+export interface GraphNode {
+  id: number;
+  labels?: string[];
+  properties: string;
+}
+
+export interface GraphQueryReq {
+  connection_id: string;
+  database_index: number;
+  graph: string;
+  query: string;
+}
+
+export interface GraphQueryRes {
+  columns?: string[];
+  rows?: GraphRow[];
+  nodes?: GraphNode[];
+  edges?: GraphEdge[];
+  stats?: string[];
+}
+
+export interface GraphRow {
+  cells?: string[];
+}
+
+export interface GraphSchemaReq {
+  connection_id: string;
+  database_index: number;
+  graph: string;
+}
+
+export interface GraphSchemaRes {
+  labels?: string[];
+  relationships?: string[];
+  properties?: string[];
+  nodes: number;
+  edges: number;
 }
 
 export interface GroupItem {

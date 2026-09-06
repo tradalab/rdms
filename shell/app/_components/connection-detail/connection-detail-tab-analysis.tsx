@@ -36,6 +36,7 @@ const KIND_COLOR: Record<string, string> = {
   zset: "bg-rose-500",
   stream: "bg-teal-500",
   "rejson-rl": "bg-indigo-500",
+  graphdata: "bg-fuchsia-500", // rose is taken by zset in this map; two bars the same colour answer nothing
   other: "bg-zinc-400",
 }
 const kindColor = (k: string) => KIND_COLOR[k] ?? "bg-zinc-400"

@@ -132,6 +132,7 @@ export function KeyDetailSet(props: KeyDetailSetProps) {
         ttl: -1,
         value_string: "",
         value_json: "",
+        value_graph: "",
         value_set: values.value_set,
         value_stream: { id: "", values: "" },
       })

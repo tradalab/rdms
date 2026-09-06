@@ -15,6 +15,7 @@ const KIND_BADGE: Record<string, string> = {
   set: "bg-orange-500/15 text-orange-700 dark:text-orange-300",
   zset: "bg-cyan-500/15 text-cyan-700 dark:text-cyan-300",
   stream: "bg-amber-500/15 text-amber-700 dark:text-amber-300",
+  graphdata: "bg-rose-500/15 text-rose-700 dark:text-rose-300",
 }
 
 export function KindBadge({ kind, className }: { kind?: string; className?: string }) {

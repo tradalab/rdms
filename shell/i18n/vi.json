@@ -278,5 +278,18 @@
   "select_item_hint": "Chọn một mục ở thanh bên để mở tab",
   "console_hint_use": "Dùng",
   "console_hint_navigate": "để di chuyển",
-  "console_hint_select": "để chọn"
+  "console_hint_select": "để chọn",
+  "graph_nodes": "Nút",
+  "graph_edges": "Quan hệ",
+  "graph_view_graph": "Đồ thị",
+  "graph_view_table": "Bảng",
+  "graph_no_nodes": "Kết quả này không có nút nào để vẽ",
+  "graph_no_properties": "Không có thuộc tính",
+  "graph_truncated": "Hiện {{shown}} trong {{total}} nút",
+  "graph_zoom_in": "Phóng to",
+  "graph_zoom_out": "Thu nhỏ",
+  "graph_reset_view": "Đặt lại khung nhìn",
+  "graph_read_only_hint": "Chế độ chỉ đọc: server sẽ từ chối truy vấn có ghi",
+  "graph_create_hint": "Cypher tạo đồ thị",
+  "graph_cypher_required": "Nhập một câu lệnh Cypher"
 }

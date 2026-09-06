@@ -132,6 +132,7 @@ export function KeyDetailList(props: KeyDetailListProps) {
         ttl: -1,
         value_string: "",
         value_json: "",
+        value_graph: "",
         value_list: values.value_list,
         value_stream: { id: "", values: "" },
       })

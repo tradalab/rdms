@@ -125,6 +125,7 @@ export function KeyDetailStream(props: Props) {
         ttl: -1,
         value_string: "",
         value_json: "",
+        value_graph: "",
         value_stream: {
           id: "*",
           values: JSON.stringify(entries),

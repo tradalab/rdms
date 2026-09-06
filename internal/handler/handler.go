@@ -10,6 +10,7 @@ import (
 	"github.com/tradalab/rdms/internal/logic/conn"
 	"github.com/tradalab/rdms/internal/logic/connection"
 	"github.com/tradalab/rdms/internal/logic/console"
+	"github.com/tradalab/rdms/internal/logic/graph"
 	"github.com/tradalab/rdms/internal/logic/group"
 	"github.com/tradalab/rdms/internal/logic/key"
 	"github.com/tradalab/rdms/internal/logic/monitor"
@@ -393,6 +394,18 @@ func RegisterHandlers(a *app.App, svcCtx *svc.ServiceContext) {
 	})
 	app.RegisterServerStream(a, "analysis:profile", func(ctx context.Context, req *types.AnalysisProfileReq, out app.Sink[types.AnalysisProfileEvent]) error {
 		return analysis.NewProfileLogic(ctx, svcCtx).Profile(req, out)
+	})
+	reg(a, "graph:query", func(ctx context.Context, r *types.GraphQueryReq) (any, error) {
+		h := func(ctx context.Context, a any) (any, error) {
+			return graph.NewQueryLogic(ctx, svcCtx).Query(a.(*types.GraphQueryReq))
+		}
+		return h(ctx, r)
+	})
+	reg(a, "graph:schema", func(ctx context.Context, r *types.GraphSchemaReq) (any, error) {
+		h := func(ctx context.Context, a any) (any, error) {
+			return graph.NewSchemaLogic(ctx, svcCtx).Schema(a.(*types.GraphSchemaReq))
+		}
+		return h(ctx, r)
 	})
 }
 

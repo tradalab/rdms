@@ -6,4 +6,5 @@ export enum KeyKindEnum {
   ZSET = "zset",
   STREAM = "stream",
   JSON = "rejson-rl",
+  GRAPH = "graphdata",
 }

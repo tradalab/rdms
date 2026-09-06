@@ -39,7 +39,7 @@ Quick start:
 git clone https://github.com/tradalab/redishub.git
 cd redishub
 make deps      # Go + pnpm dependencies
-make redis-up  # local Redis: standalone + sentinel + cluster, via Docker
+make redis-up  # local Redis: standalone + sentinel + cluster + FalkorDB (graph), via Docker
 make dev       # Next.js dev server (HMR) + Go backend, opens the app window
 ```
 

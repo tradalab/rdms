@@ -109,6 +109,14 @@ func (l *KeyCreateLogic) KeyCreate(params *types.ClientKeyCreateReq) (*types.Emp
 		if err == nil && expiration > 0 {
 			cli.Rdb.Expire(l.ctx, params.Key, expiration)
 		}
+	case "graph", "graphdata":
+		// Nothing checks afterwards that the key appeared: measured on FalkorDB
+		// 4.20.4, GRAPH.QUERY materialises it even for a read-only statement, so
+		// a MATCH here leaves a real empty graph, not the no-op it looks like.
+		err = cli.Rdb.Do(l.ctx, "GRAPH.QUERY", params.Key, params.ValueGraph).Err()
+		if err == nil && expiration > 0 {
+			cli.Rdb.Expire(l.ctx, params.Key, expiration)
+		}
 	default:
 		return nil, fmt.Errorf("unsupported kind: %s", params.Kind)
 	}

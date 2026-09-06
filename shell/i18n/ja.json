@@ -278,5 +278,18 @@
   "select_item_hint": "サイドバーから項目を選択してタブを開きます",
   "console_hint_use": "",
   "console_hint_navigate": "で移動",
-  "console_hint_select": "で選択"
+  "console_hint_select": "で選択",
+  "graph_nodes": "ノード",
+  "graph_edges": "リレーション",
+  "graph_view_graph": "グラフ",
+  "graph_view_table": "テーブル",
+  "graph_no_nodes": "この結果に描画できるノードはありません",
+  "graph_no_properties": "プロパティなし",
+  "graph_truncated": "{{total}} 件中 {{shown}} 件のノードを表示",
+  "graph_zoom_in": "拡大",
+  "graph_zoom_out": "縮小",
+  "graph_reset_view": "表示をリセット",
+  "graph_read_only_hint": "読み取り専用モード: 書き込むクエリはサーバーが拒否します",
+  "graph_create_hint": "グラフを作成する Cypher",
+  "graph_cypher_required": "Cypher 文を入力してください"
 }

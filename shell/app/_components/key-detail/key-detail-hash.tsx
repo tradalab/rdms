@@ -137,6 +137,7 @@ export function KeyDetailHash(props: KeyDetailHashProps) {
         ttl: -1,
         value_string: "",
         value_json: "",
+        value_graph: "",
         value_hash: values.value_hash,
         value_stream: { id: "", values: "" },
       })

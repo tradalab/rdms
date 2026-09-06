@@ -46,6 +46,11 @@ var staticWriteCmds = map[string]struct{}{
 	"json.arrinsert": {}, "json.arrpop": {}, "json.arrtrim": {}, "json.numincrby": {},
 	"json.nummultby": {}, "json.strappend": {}, "json.toggle": {}, "json.clear": {},
 	"json.merge": {}, "json.mset": {},
+	// RedisGraph / FalkorDB. GRAPH.QUERY carries the write flag whatever the
+	// Cypher inside it says, which is why the console sends the RO twin instead
+	// once a connection is read-only.
+	"graph.query": {}, "graph.delete": {}, "graph.profile": {}, "graph.bulk": {},
+	"graph.constraint": {}, "graph.copy": {},
 	// destructive admin (also "write"-flagged on most servers)
 	"flushall": {}, "flushdb": {}, "swapdb": {},
 }
@@ -100,6 +105,8 @@ func (c *Client) isWriteCmd(cmd redis.Cmder) bool {
 		default:
 			return false
 		}
+	case "graph.config":
+		return subArg(cmd, 1) != "get" // set
 	case "shutdown", "debug", "failover", "reset":
 		return true
 	}

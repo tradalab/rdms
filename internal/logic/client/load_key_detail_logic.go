@@ -75,6 +75,9 @@ func (l *LoadKeyDetailLogic) LoadKeyDetail(params *types.ClientLoadKeyDetailReq)
 		valueStr = val
 	case "json", "rejson":
 		// handled as string by the client
+	case "graphdata":
+		// A graph has no O(1) cardinality. Node and edge totals come from
+		// graph:schema, which the graph view asks for anyway.
 	}
 
 	if err != nil {

@@ -115,6 +115,7 @@ type ClientKeyCreateReq struct {
 	ValueSet      []string    `json:"value_set"`
 	ValueZset     []ZMember   `json:"value_zset"`
 	ValueStream   StreamValue `json:"value_stream"`
+	ValueGraph    string      `json:"value_graph"`
 }
 
 type ClientKeyDeleteReq struct {
@@ -321,6 +322,53 @@ type DbInfo struct {
 }
 
 type Empty struct {
+}
+
+type GraphEdge struct {
+	Id         int64  `json:"id"`
+	Type       string `json:"type"`
+	Src        int64  `json:"src"`
+	Dst        int64  `json:"dst"`
+	Properties string `json:"properties"`
+}
+
+type GraphNode struct {
+	Id         int64    `json:"id"`
+	Labels     []string `json:"labels"`
+	Properties string   `json:"properties"`
+}
+
+type GraphQueryReq struct {
+	ConnectionId  string `json:"connection_id"`
+	DatabaseIndex int32  `json:"database_index"`
+	Graph         string `json:"graph"`
+	Query         string `json:"query"`
+}
+
+type GraphQueryRes struct {
+	Columns []string    `json:"columns"`
+	Rows    []GraphRow  `json:"rows"`
+	Nodes   []GraphNode `json:"nodes"`
+	Edges   []GraphEdge `json:"edges"`
+	Stats   []string    `json:"stats"`
+}
+
+type GraphRow struct {
+	Cells []string `json:"cells"`
+}
+
+type GraphSchemaReq struct {
+	ConnectionId  string `json:"connection_id"`
+	DatabaseIndex int32  `json:"database_index"`
+	Graph         string `json:"graph"`
+}
+
+type GraphSchemaRes struct {
+	Labels        []string `json:"labels"`
+	Relationships []string `json:"relationships"`
+	Properties    []string `json:"properties"`
+	Nodes         int64    `json:"nodes"`
+	Edges         int64    `json:"edges"`
 }
 
 type GroupItem struct {

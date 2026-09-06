@@ -150,6 +150,7 @@ message ClientKeyCreateReq {
   repeated string value_set = 10;
   repeated ZMember value_zset = 11;
   StreamValue value_stream = 12;
+  string value_graph = 13;
 }
 
 message KeyValue {
@@ -727,4 +728,56 @@ message AnalysisProfileEvent {
 
 service analysis {
   rpc Profile(AnalysisProfileReq) returns (stream AnalysisProfileEvent);
+}
+
+message GraphQueryReq {
+  string connection_id  = 1;
+  int32  database_index = 2;
+  string graph          = 3;
+  string query          = 4;
+}
+
+message GraphNode {
+  int64           id         = 1;
+  repeated string labels     = 2;
+  string          properties = 3; // JSON object
+}
+
+message GraphEdge {
+  int64  id         = 1;
+  string type       = 2;
+  int64  src        = 3;
+  int64  dst        = 4;
+  string properties = 5; // JSON object
+}
+
+message GraphRow {
+  repeated string cells = 1; // one JSON-encoded value per column
+}
+
+message GraphQueryRes {
+  repeated string    columns = 1;
+  repeated GraphRow  rows    = 2;
+  repeated GraphNode nodes   = 3; // deduped over the whole result, for the node-link view
+  repeated GraphEdge edges   = 4;
+  repeated string    stats   = 5; // the server's own statistics lines, verbatim
+}
+
+message GraphSchemaReq {
+  string connection_id  = 1;
+  int32  database_index = 2;
+  string graph          = 3;
+}
+
+message GraphSchemaRes {
+  repeated string labels        = 1;
+  repeated string relationships = 2;
+  repeated string properties    = 3;
+  int64           nodes         = 4;
+  int64           edges         = 5;
+}
+
+service graph {
+  rpc Query(GraphQueryReq) returns (GraphQueryRes);
+  rpc Schema(GraphSchemaReq) returns (GraphSchemaRes);
 }

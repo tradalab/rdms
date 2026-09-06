@@ -10,6 +10,7 @@ import { KeyDetailZset } from "@/app/_components/key-detail/key-detail-zset"
 import { KeyDetailStream } from "@/app/_components/key-detail/key-detail-stream"
 import { KeyDetailString } from "@/app/_components/key-detail/key-detail-string"
 import { KeyDetailJson } from "@/app/_components/key-detail/key-detail-json"
+import { KeyDetailGraph } from "@/app/_components/key-detail/key-detail-graph"
 import { Input, toast } from "@tradalab/lyra/ui"
 import { CopyIcon, RefreshCcwIcon, SaveIcon, TimerIcon, Trash2Icon } from "lucide-react"
 import { cn, formatDuration, formatFileSize } from "@/lib/utils"
@@ -57,8 +58,9 @@ export function ConnectionDetailTabKeyDetail({ connectionId, databaseIdx, select
   const ttl = detail?.ttl
 
   // Header metadata: element count for collections, character length for strings.
+  // A graph has neither - its node and edge counts belong to the graph view.
   const lengthValue = useMemo(() => {
-    if (!detail) return 0
+    if (!detail || kind === "graphdata") return null
     if (kind && kind !== "string" && kind !== "json") return detail.total ?? 0
     return typeof displayValue === "string" ? displayValue.length : 0
   }, [detail, kind, displayValue])
@@ -201,7 +203,7 @@ export function ConnectionDetailTabKeyDetail({ connectionId, databaseIdx, select
           </div>
         </div>
         <div className="text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-1 px-0.5 text-xs">
-          <Stat label={t("length")} value={lengthValue.toLocaleString()} />
+          {lengthValue !== null && <Stat label={t("length")} value={lengthValue.toLocaleString()} />}
           {!!detail?.size && <Stat label={t("memory")} value={formatFileSize(detail.size)} />}
           {!!detail?.encoding && <Stat label={t("encoding")} value={detail.encoding} mono />}
         </div>
@@ -260,6 +262,8 @@ function ViewKeyData({ kind, value, databaseId, databaseIdx, selectedKey, reload
           readOnly={readOnly}
         />
       )
+    case "graphdata":
+      return <KeyDetailGraph databaseId={databaseId} databaseIdx={databaseIdx} selectedKey={selectedKey} reloadToken={reloadToken} readOnly={readOnly} />
     case "string":
       return <KeyDetailString databaseId={databaseId} databaseIdx={databaseIdx} selectedKey={selectedKey} data={value} reload={reload} readOnly={readOnly} />
     case "json":

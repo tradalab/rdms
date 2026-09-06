@@ -137,6 +137,7 @@ export function KeyDetailZset(props: KeyDetailZsetProps) {
         ttl: -1,
         value_string: "",
         value_json: "",
+        value_graph: "",
         value_zset: values.value_zset,
         value_stream: { id: "", values: "" },
       })

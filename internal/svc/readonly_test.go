@@ -20,6 +20,7 @@ func TestIsWriteCmd_StaticFallback(t *testing.T) {
 		{"sadd", "s", "m"}, {"srem", "s", "m"}, {"zadd", "z", "1", "m"}, {"zrem", "z", "m"},
 		{"xadd", "x", "*", "f", "v"}, {"flushall"}, {"flushdb"}, {"swapdb", "0", "1"},
 		{"json.set", "k", ".", "1"},
+		{"graph.query", "g", "MATCH (n) RETURN n"}, {"graph.delete", "g"},
 	}
 	for _, w := range writes {
 		if !c.isWriteCmd(mkCmd(w...)) {
@@ -32,6 +33,8 @@ func TestIsWriteCmd_StaticFallback(t *testing.T) {
 		{"scan", "0"}, {"keys", "*"}, {"ping"}, {"info"}, {"type", "k"},
 		{"lrange", "l", "0", "-1"}, {"smembers", "s"}, {"zrange", "z", "0", "-1"},
 		{"publish", "ch", "msg"}, {"subscribe", "ch"}, {"ttl", "k"},
+		{"graph.ro_query", "g", "MATCH (n) RETURN n"}, {"graph.explain", "g", "MATCH (n) RETURN n"},
+		{"graph.list"},
 	}
 	for _, r := range reads {
 		if c.isWriteCmd(mkCmd(r...)) {
@@ -45,6 +48,7 @@ func TestIsWriteCmd_AdminSubcommands(t *testing.T) {
 
 	blocked := [][]interface{}{
 		{"config", "set", "maxmemory", "100mb"},
+		{"graph.config", "set", "TIMEOUT", "1000"},
 		{"config", "rewrite"},
 		{"script", "load", "return 1"},
 		{"script", "flush"},
@@ -68,6 +72,7 @@ func TestIsWriteCmd_AdminSubcommands(t *testing.T) {
 		{"acl", "whoami"},
 		{"cluster", "info"},
 		{"cluster", "nodes"},
+		{"graph.config", "get", "TIMEOUT"},
 	}
 	for _, a := range allowed {
 		if c.isWriteCmd(mkCmd(a...)) {

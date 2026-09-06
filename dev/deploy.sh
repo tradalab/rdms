@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-COMPOSE_FILES=("-f" "docker-compose-standalone.yaml" "-f" "docker-compose-sentinel.yaml" "-f" "docker-compose-cluster.yaml")
+COMPOSE_FILES=("-f" "docker-compose-standalone.yaml" "-f" "docker-compose-sentinel.yaml" "-f" "docker-compose-cluster.yaml" "-f" "docker-compose-falkordb.yaml")
 
 # Detect Host IP for Redis Cluster announcement
 # This is required for Windows host to connect to Cluster nodes in separate containers

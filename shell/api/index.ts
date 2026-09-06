@@ -111,3 +111,8 @@ export const analysis = {
   profile: (params: T.AnalysisProfileReq) => scorix.serverStream<T.AnalysisProfileEvent>("analysis:profile", params),
 };
 
+export const graph = {
+  query: (params: T.GraphQueryReq) => scorix.invoke<T.GraphQueryRes>("graph:query", params),
+  schema: (params: T.GraphSchemaReq) => scorix.invoke<T.GraphSchemaRes>("graph:schema", params),
+};
+

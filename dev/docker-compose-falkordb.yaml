@@ -1,0 +1,23 @@
+# redis:8 has no graph module. FalkorDB is the maintained fork of RedisGraph and
+# speaks the same GRAPH.* commands; its entrypoint loads the module and honours
+# REDIS_ARGS, so overriding `command` here would only pin a path upstream moves.
+services:
+  redis-falkordb:
+    image: falkordb/falkordb:v4.20.4
+    container_name: redis-falkordb
+    environment:
+      REDIS_ARGS: "--requirepass rdh_falkordb_pwd"
+      BROWSER: "0" # the image also ships a Node web UI; the dev box only needs the server
+    volumes:
+      - redis-falkordb-data:/var/lib/falkordb/data
+    ports:
+      - "6002:6379"
+    networks:
+      - redis-net
+
+volumes:
+  redis-falkordb-data:
+
+networks:
+  redis-net:
+    driver: bridge

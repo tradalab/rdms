@@ -29,7 +29,7 @@ export const emptyFilters = (): KeyFilter[] => [{ pattern: "", mode: "substring"
 
 const MODES = ["substring", "glob", "regex"] as const
 
-const KEY_TYPES = ["string", "list", "set", "zset", "hash", "stream", "rejson-rl"] as const
+const KEY_TYPES = ["string", "list", "set", "zset", "hash", "stream", "rejson-rl", "graphdata"] as const
 
 const ANY_TYPE = "__any__"
 

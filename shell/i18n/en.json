@@ -278,5 +278,18 @@
   "select_item_hint": "Select an item from the sidebar to open a tab",
   "console_hint_use": "Use",
   "console_hint_navigate": "to navigate",
-  "console_hint_select": "to select"
+  "console_hint_select": "to select",
+  "graph_nodes": "Nodes",
+  "graph_edges": "Relationships",
+  "graph_view_graph": "Graph",
+  "graph_view_table": "Table",
+  "graph_no_nodes": "This result has no nodes to draw",
+  "graph_no_properties": "No properties",
+  "graph_truncated": "Showing {{shown}} of {{total}} nodes",
+  "graph_zoom_in": "Zoom in",
+  "graph_zoom_out": "Zoom out",
+  "graph_reset_view": "Reset view",
+  "graph_read_only_hint": "Read-only mode: the server refuses a query that writes",
+  "graph_create_hint": "Cypher that creates the graph",
+  "graph_cypher_required": "Enter a Cypher statement"
 }

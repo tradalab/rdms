@@ -19,6 +19,16 @@ import { KeyAddValueZset } from "@/app/_components/key-add/key-add-value-zset"
 import { useKeyCreate } from "@/hooks/api/client.api"
 import { useTranslation } from "react-i18next"
 import { KeyAddValueStream } from "@/app/_components/key-add/key-add-value-stream"
+import { registerCypher } from "@/lib/cypher"
+
+// Unlike every other type there is no value to type, only a statement to run,
+// so the editor opens on one that builds something.
+const DEFAULT_GRAPH_CYPHER = "CREATE (:Person {name: 'Alice'})-[:KNOWS]->(:Person {name: 'Bob'})"
+
+const KIND_LABEL: Record<string, string> = {
+  [KeyKindEnum.JSON]: "JSON",
+  [KeyKindEnum.GRAPH]: "GRAPH",
+}
 
 export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
   const { t } = useTranslation()
@@ -38,6 +48,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
       value_zset: [{ member: "", score: 0 }],
       value_stream: {},
       value_json: "",
+      value_graph: DEFAULT_GRAPH_CYPHER,
     },
     resolver: zodResolver(
       z.object({
@@ -51,6 +62,7 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
         value_zset: z.any().optional(),
         value_stream: z.any().optional(),
         value_json: z.any().optional(),
+        value_graph: z.any().optional(),
       })
     ),
   })
@@ -63,6 +75,10 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
         toast.add({ title: t("invalid_json"), type: "error" })
         return
       }
+    }
+    if (values.kind == KeyKindEnum.GRAPH && !String(values.value_graph ?? "").trim()) {
+      toast.add({ title: t("graph_cypher_required"), type: "error" })
+      return
     }
     if (values.kind == KeyKindEnum.STREAM) {
       const entries = (values.value_stream ?? []).filter((i: any) => i?.field !== "").map((i: any) => [i?.field, i?.value])
@@ -140,9 +156,9 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {["string", "list", "hash", "set", "zset", "stream", KeyKindEnum.JSON].map(e => (
+                          {["string", "list", "hash", "set", "zset", "stream", KeyKindEnum.JSON, KeyKindEnum.GRAPH].map(e => (
                             <SelectItem key={e} value={e}>
-                              {e === KeyKindEnum.JSON ? "JSON" : e.toUpperCase()}
+                              {KIND_LABEL[e] ?? e.toUpperCase()}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -180,6 +196,26 @@ export function BrowserAddKeyDialog({ children }: { children: ReactNode }) {
                       <FormLabel className="flex items-center justify-between">{t("value")}</FormLabel>
                       <FormControl>
                         <CodeEditor {...field} language="json" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            )}
+            {kindValue == KeyKindEnum.GRAPH && (
+              <FormField
+                control={form.control}
+                name="value_graph"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="flex items-center justify-between">
+                        {t("value")}
+                        <span className="text-muted-foreground text-xs font-normal">{t("graph_create_hint")}</span>
+                      </FormLabel>
+                      <FormControl>
+                        <CodeEditor {...field} language="cypher" beforeMount={registerCypher} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
