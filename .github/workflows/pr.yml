@@ -14,4 +14,4 @@ concurrency:
 
 jobs:
   check:
-    uses: tradalab/scorix/.github/workflows/scorix-pr.yml@v0.25.0
+    uses: tradalab/scorix/.github/workflows/scorix-pr.yml@v0.26.0

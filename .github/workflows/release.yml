@@ -12,10 +12,14 @@ jobs:
     # permissions key the caller gets the repository default, which is read-only.
     permissions:
       contents: write
+      # web-image pushes to GHCR, and a called workflow never holds more than its
+      # caller grants - without this the web job is refused before anything runs.
+      packages: write
     # updater.provider is github here, so the pipeline skips the R2 steps and the
     # GitHub Release IS the distribution channel - which is why this repo is public.
     # No app-prefix: nothing is published to the CDN.
-    uses: tradalab/scorix/.github/workflows/scorix-release.yml@v0.25.0
+    uses: tradalab/scorix/.github/workflows/scorix-release.yml@v0.26.0
     with:
       wix-version: "6.0.2"
+      web-image: true
     secrets: inherit
