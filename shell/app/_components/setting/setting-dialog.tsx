@@ -31,25 +31,14 @@ export function SettingDialog({ children }: { children: ReactNode }) {
         />
         <DialogFooter className="p-2 border-t flex gap-2">
           <div className="flex items-center justify-between w-full text-sm">
-            <div className="flex gap-4">
-              {[
-                { title: "Github", url: "https://github.com/tradalab/redishub" },
-                { title: t("report_issues"), url: "https://github.com/tradalab/redishub/issues" },
-                { title: t("documentation"), url: "https://redishub.tradalab.com/" },
-              ].map((item, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  onClick={e => {
-                    e.preventDefault()
-                    openExternal(item.url)
-                  }}
-                  className="text-blue-500 underline"
-                >
-                  {item.title}
-                </a>
-              ))}
-            </div>
+            {/* Not translated: a byline, like the version beside it. The links
+                that were here stay in the sidebar, which already had them. */}
+            <button
+              onClick={() => openExternal("https://github.com/tradalab/scorix")}
+              className="text-muted-foreground hover:text-foreground text-[10px] transition-colors hover:underline"
+            >
+              Powered by scorix
+            </button>
             <span className="text-xs font-bold">v{version}</span>
           </div>
         </DialogFooter>

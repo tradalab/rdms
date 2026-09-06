@@ -16,7 +16,7 @@ import { version } from "../../../package.json"
 
 export function SettingPanelGeneral() {
   const { t } = useTranslation()
-  const { checkUpdate, fullUpdate, newVersion, loading } = useUpdater()
+  const { checkUpdate, fullUpdate, newVersion, notes, loading } = useUpdater()
   const { theme, setTheme } = useTheme()
   const [checked, setChecked] = useState(false)
   const { language, setLanguage, compactMode, setCompactMode } = useAppContext()
@@ -121,6 +121,9 @@ export function SettingPanelGeneral() {
           <FieldDescription>
             {checked ? (newVersion ? t("update_available", { v: newVersion }) : t("up_to_date")) : `${t("current_version")}: v${version}`}
           </FieldDescription>
+          {/* Not translated: it comes from the manifest, which is one file for
+              every locale. Only with an update to describe. */}
+          {checked && newVersion && notes && <FieldDescription className="whitespace-pre-wrap">{notes}</FieldDescription>}
         </Field>
       </FieldSet>
     </FieldGroup>
