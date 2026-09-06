@@ -1,7 +1,7 @@
 name: redishub
 image:
   repository: ghcr.io/tradalab/redishub
-  tag: "1.14.0" # keep in sync with scorix.yaml app.version
+  tag: "1.15.0" # keep in sync with scorix.yaml app.version
   pullPolicy: IfNotPresent
 imagePullSecrets: []
 replicas: 1

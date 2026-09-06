@@ -2,6 +2,33 @@
 
 ---
 
+## [1.15.0]
+
+### 🚀 Features
+
+- **shell:** RedisGraph support - a `graphdata` key opens into a Cypher console with syntax highlighting and schema-aware completion, and the answer reads either as an interactive node-link graph or as the raw table. Create graph keys from the New Key dialog and filter the browser by graph type. Works against RedisGraph and FalkorDB
+- **shell:** RedisJSON support - browse and edit `ReJSON-RL` documents in a dedicated editor, create JSON keys from the New Key dialog, and filter the browser by JSON type. Requires a server with the RedisJSON module (bundled in Redis 8 core)
+- **shell:** New **Analysis** tab - keyspace profiling with key counts by type, power-of-two size distribution, memory overview, TTL spread and the largest keys, in three modes (INFO-only / sampled / full scan) with live progress and cancel
+- **key-browser:** Advanced filtering - substring, glob and regex patterns, several at once, with exclude and ignore-case per pattern and saveable filter presets
+- **app:** Run in the background - closing the window hides RedisHub to the system tray instead of quitting, with Open/Quit from the tray menu (Windows, Linux)
+- **updater:** Release notes are shown when an update is offered, and the settings dialog carries the runtime version
+- **i18n:** Vietnamese language support
+
+### 🐛 Fixes
+
+- **cluster:** The key browser, key search and bulk delete only ever saw one master's keys on a Redis Cluster - a bare `SCAN` is routed to a single node and then reports it is done. All keyspace walks now fan out across every master
+- **shell:** The JSON editor failed to start its language service in web mode, logging `Monaco initialization: error` and falling back to running it on the main thread
+- **shell:** Keys with no expiry showed a TTL of `0s` instead of `—` in the largest-keys table
+- **updater:** Automatic update checks could not be turned off
+- **shell:** External links opened inside the app window instead of the system browser
+
+### 🔧 Chores
+
+- **deps:** Scorix runtime v0.25.0, Lyra 2.3.0, pnpm 11.22.0, Node 24
+- **dev:** A FalkorDB box joins the local Redis stack, because `redis:8` carries no graph module
+
+---
+
 ## [1.14.0]
 
 ### 🚀 Features
