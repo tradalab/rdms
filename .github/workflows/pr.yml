@@ -1,8 +1,5 @@
 name: PR checks
 
-# The only CI that runs contributor code, and it runs HERE deliberately: a fork PR gets a
-# read-only token, no secrets, and a throwaway runner. Upstream CI holds the release credentials
-# and runs on self-hosted infrastructure, so untrusted code must never reach it.
 on:
   pull_request:
     branches: [main]
@@ -17,44 +14,4 @@ concurrency:
 
 jobs:
   check:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.26"
-          cache: true
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.3.0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: pnpm
-          cache-dependency-path: shell/pnpm-lock.yaml
-
-      - name: Install scorix CLI
-        run: go install github.com/tradalab/scorix/cmd/scorix@v0.13.0
-
-      - name: Install frontend deps
-        working-directory: shell
-        run: pnpm install --frozen-lockfile
-
-      # Build first: it fills .scorix/dist, so the _ensure-embed guard in `make test` / `make lint`
-      # does not build the frontend a second time. No GTK/WebKit dev packages needed — the webview
-      # is dlopen'd at runtime (no-CGO); release-linux.yml installs them only to bundle an AppImage.
-      - name: Build
-        run: make build
-
-      - name: Test
-        run: make test
-
-      - name: Lint
-        run: make lint
+    uses: tradalab/scorix/.github/workflows/scorix-pr.yml@v0.25.0
