@@ -2,6 +2,14 @@
 
 ---
 
+## [1.15.1]
+
+### 🐛 Fixes
+
+- **docker:** The web image failed to build - `go.mod` moved to Go 1.27 but `Dockerfile_web` still pulled `golang:1.26-alpine`, so `go mod download` refused with `go.mod requires go >= 1.27.0`. Desktop builds were unaffected; only the container image was missing for 1.15.0
+
+---
+
 ## [1.15.0]
 
 ### 🚀 Features

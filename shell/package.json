@@ -1,6 +1,6 @@
 {
   "name": "shell",
-  "version": "1.15.0",
+  "version": "1.15.1",
   "private": true,
   "scripts": {
     "copy-monaco": "node scripts/copy-monaco.mjs",
