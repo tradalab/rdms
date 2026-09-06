@@ -12,7 +12,11 @@ FROM node-base AS next-deps
 
 ARG SHELL_DIR=shell
 
+# pnpm-workspace.yaml carries allowBuilds and minimumReleaseAgeExclude. Leave it
+# out and pnpm 11 ignores every build script, then fails the install for having
+# ignored them - and a freshly published @tradalab/* waits 24h on top of that.
 COPY ${SHELL_DIR}/package.json \
+    ${SHELL_DIR}/pnpm-workspace.yaml* \
     ${SHELL_DIR}/yarn.lock* \
     ${SHELL_DIR}/package-lock.json* \
     ${SHELL_DIR}/pnpm-lock.yaml* \
